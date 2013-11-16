@@ -1,41 +1,42 @@
 package library;
 
 import java.io.PrintStream;
+import java.util.HashSet;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 class MusicAlbum
 	extends Item
 {
-    // Set private fields to contain information about a Book, and ensure they are initially empty
-    private String band = null;
+    // Set private fields to contain information about a MusicAlbum, and ensure they are initially empty
+    private String band = "";
     private int numberOfSongs = 0;
-    private String title = null;
+    private String title = "";
+    // Arguably, members should be a HashSet, since the datasets will be small. But, since these will all
+    // have to be displayed Sorted at some point, Trees make since and are still non-linear
     private SortedSet<String> members = new TreeSet<String>();
     private SortedSet<String> keywords = new TreeSet<String>();
 
     // Set the Author of a Book, assuming no author has yet been set
-    public void setAuthor(String authorInput){
-        if (band == null)
-            band = authorInput;
+    public void setBandName(String bandInput){
+        if (band == "")
+            band = bandInput;
     }
 
-    // Set the Page Count of a Book, assuming no page count has been set
-    public void setPageCount(int pages){
+    // Set the Song Count of a MusicAlbum, assuming no page count has been set
+    public void setSongCount(int songs){
         if (numberOfSongs == 0)
-            numberOfSongs = pages;
+            numberOfSongs = songs;
     }
 
-    // Add keywords to a book. I was split on whether this is a "Library" function or a "Book" function, since in
-    // reality, keywords are declared post-production, as compared to things like the Title. I decided to default to the
-    // lowest level of storage
+   // Add member to the band list
     public void addBandMembers(String... memberList){
         for (String member : memberList)
-            if (!keywords.contains(member))
-                keywords.add(member);
+            if (!members.contains(member))
+                members.add(member);
     }
 
-    // Add keywords to a book. I was split on whether this is a "Library" function or a "Book" function, since in
+    // Add keywords to a book. I was split on whether this is a "Library" function or a "MusicAlbum" function, since in
     // reality, keywords are declared post-production, as compared to things like the Title. I decided to default to the
     // lowest level of storage
     public void addKeyword(String... keywordList){
@@ -44,13 +45,13 @@ class MusicAlbum
                 keywords.add(keyword);
     }
 
-    // Set the Title of a Book, assuming no title has been set
-    public void setTitle(String bookName){
-        if (title == null)
-            title = bookName;
+    // Set the Title of a MusicAlbum, assuming no title has been set
+    public void setTitle(String albumName){
+        if (title == "")
+            title = albumName;
     }
 
-    // Remove keywords from book. I allowed this, since it seems logical to me that keywords for a title may change
+    // Remove keywords from item. I allowed this, since it seems logical to me that keywords for a title may change
     // over time.
     public void removeKeyword(String... keywordList){
         for (String keyword : keywordList)
@@ -61,21 +62,19 @@ class MusicAlbum
     @Override
     protected void displayInfo(PrintStream out){
         out.println("-Music Album-");
-        out.println("band:   " + band);
-        out.println("# songs:   " + numberOfSongs);
+        out.println("band:     " + band);
+        out.println("# songs:  " + numberOfSongs);
         out.println("members: ");
         for (String member : members) {
-            // Clumsy and awkward looking, just like me attempting ballet
             if (!member.equals(members.last()))
                 out.print(member + ", ");
             else
                 out.print(member);
         }
         //out.println("\n");
-        out.println("title:   " + title);
+        out.println("title:    " + title);
         out.print("keywords: ");
         for (String keyword : keywords) {
-            // LESS BAD!
             if (!keyword.equals(keywords.last()))
                 out.print(keyword + ", ");
             else

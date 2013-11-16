@@ -3,7 +3,6 @@ package library;
 import java.io.PrintStream;
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.SortedSet;
 
 public class Library
 {
@@ -73,8 +72,8 @@ public class Library
         // On second thought, I'd still have two parts: a set title/pages/author section
         // And a add keywords section. It'd work, but meh...
         newAlbum.setTitle(title);
-        newAlbum.setAuthor(band);
-        newAlbum.setPageCount(nSongs);
+        newAlbum.setBandName(band);
+        newAlbum.setSongCount(nSongs);
         newAlbum.addKeyword(keywords);
         NYPL.add(newAlbum);
 
@@ -84,6 +83,10 @@ public class Library
 	// adds the specified band members to a music album
 	public void addBandMembers(Item album, String... members)
 	{
+        if (NYPL.contains(album) && (album instanceof MusicAlbum)) {
+            //album = new MusicAlbum();
+            ((MusicAlbum) album).addBandMembers(members);
+        }
 	}
 	
 	// removes a music album from the library
@@ -115,7 +118,18 @@ public class Library
 	// adds a movie to the library
 	public Item addMovie(String title, String director, int nScenes, String... keywords)
 	{
-		return null;
+        Movie newMovie = new Movie();
+
+        // This could potentially be more elegant as a single method...
+        // On second thought, I'd still have two parts: a set title/pages/author section
+        // And a add keywords section. It'd work, but meh...
+        newMovie.setTitle(title);
+        newMovie.setDirector(director);
+        newMovie.setSceneCount(nScenes);
+        newMovie.addKeyword(keywords);
+        NYPL.add(newMovie);
+
+        return newMovie;
 	}
 
 	// adds the specified actors to a movie

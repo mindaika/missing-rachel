@@ -8,14 +8,14 @@ class Book
 	extends Item
 {
     // Set private fields to contain information about a Book, and ensure they are initially empty
-    private String author = null;
+    private String author = "";
     private int numberOfPages = 0;
-    private String title = null;
+    private String title = "";
     private SortedSet<String> keywords = new TreeSet<String>();
 
     // Set the Author of a Book, assuming no author has yet been set
     public void setAuthor(String authorInput){
-        if (author == null)
+        if (author == "")
             author = authorInput;
     }
 
@@ -27,7 +27,7 @@ class Book
 
     // Set the Title of a Book, assuming no title has been set
     public void setTitle(String bookName){
-        if (title == null)
+        if (title == "")
             title = bookName;
     }
 
@@ -52,8 +52,8 @@ class Book
     protected void displayInfo(PrintStream out){
         out.println("-Book-");
         out.println("author:   " + author);
-        out.println("# pages:   " + numberOfPages);
-        out.println("title:   " + title);
+        out.println("# pages:  " + numberOfPages);
+        out.println("title:    " + title);
         out.print("keywords: ");
         for (String keyword : keywords) {
             // Clumsy and awkward looking, just like me attempting ballet

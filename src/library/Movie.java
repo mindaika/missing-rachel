@@ -1,11 +1,82 @@
 package library;
 
 import java.io.PrintStream;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 class Movie
 	extends Item
 {
-    protected void displayInfo(PrintStream out){
+    // Set private fields to contain information about a Movie, and ensure they are initially empty
+    private String director = "";
+    private int numberOfScenes = 0;
+    private String title = "";
+    private SortedSet<String> members = new TreeSet<String>();
+    private SortedSet<String> keywords = new TreeSet<String>();
 
+    // Set the Author of a Book, assuming no author has yet been set
+    public void setDirector(String dirInput){
+        if (director == "")
+            director = dirInput;
+    }
+
+    // Set the Song Count of a MusicAlbum, assuming no page count has been set
+    public void setSceneCount(int scenes){
+        if (numberOfScenes == 0)
+            numberOfScenes = scenes;
+    }
+
+    // Add member to the director list
+    public void addCastMembers(String... memberList){
+        for (String member : memberList)
+            if (!members.contains(member))
+                members.add(member);
+    }
+
+    // Add keywords to a book. I was split on whether this is a "Library" function or a "MusicAlbum" function, since in
+    // reality, keywords are declared post-production, as compared to things like the Title. I decided to default to the
+    // lowest level of storage
+    public void addKeyword(String... keywordList){
+        for (String keyword : keywordList)
+            if (!keywords.contains(keyword))
+                keywords.add(keyword);
+    }
+
+    // Set the Title of a MusicAlbum, assuming no title has been set
+    public void setTitle(String movieTitle){
+        if (title == "")
+            title = movieTitle;
+    }
+
+    // Remove keywords from item. I allowed this, since it seems logical to me that keywords for a title may change
+    // over time.
+    public void removeKeyword(String... keywordList){
+        for (String keyword : keywordList)
+            if (keywords.contains(keyword))
+                keywords.remove(keyword);
+    }
+
+    @Override
+    protected void displayInfo(PrintStream out){
+        out.println("-Movie-");
+        out.println("director: " + director);
+        out.println("# scenes: " + numberOfScenes);
+        out.println("cast:     ");
+        for (String member : members) {
+            if (!member.equals(members.last()))
+                out.print(member + ", ");
+            else
+                out.print(member);
+        }
+        //out.println("\n");
+        out.println("title:    " + title);
+        out.print("keywords: ");
+        for (String keyword : keywords) {
+            if (!keyword.equals(keywords.last()))
+                out.print(keyword + ", ");
+            else
+                out.print(keyword);
+        }
+        out.println("\n");
     }
 }
