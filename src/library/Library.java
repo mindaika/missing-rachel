@@ -1,8 +1,7 @@
 package library;
 
 import java.io.PrintStream;
-import java.util.Collection;
-import java.util.LinkedHashSet;
+import java.util.*;
 
 public class Library
 {
@@ -10,7 +9,7 @@ public class Library
     // I debated whether there should be a single Collection containing all the items in the library, or separate
     // Collections for each section. I decided on separates on the basis that if J. Smith made both a movie and a book
     // with the same title, you would need to differentiate them. Hmm... actually nevermind.
-    Collection<Item> NYPL = new LinkedHashSet<Item>();
+    Collection<Item> NYPL = new HashSet<Item>();
 
 	// returns all of the items which have the specified keyword
 	public Collection<Item> itemsForKeyword(String keyword)
@@ -58,7 +57,23 @@ public class Library
 	// returns all of the books in the library
 	public Collection<Item> books()
 	{
-        return NYPL;
+        Collection<Item> bookList = new HashSet<Item>();
+        for (Item isAbook : NYPL) {
+            if (isAbook instanceof Book ) {
+                bookList.add(isAbook);
+            }
+        }
+        Comparator<Book> comparator = new Comparator<Book>() {
+            @Override
+            public int compare(Book o1, Book o2) {
+                //if (o2.getTitle().equals(o1.getTitle()))
+                return 0;
+            }
+        };
+
+        //Collections.sort(bookList, new Comparator<Book>() {
+
+        return bookList;
 	}
 	
 	// music-related methods
@@ -83,8 +98,9 @@ public class Library
 	// adds the specified band members to a music album
 	public void addBandMembers(Item album, String... members)
 	{
+        // Maybe not necessary? Checks to see if the library contains the item, and if the item of of the type
+        // needed to call addBandMembers
         if (NYPL.contains(album) && (album instanceof MusicAlbum)) {
-            //album = new MusicAlbum();
             ((MusicAlbum) album).addBandMembers(members);
         }
 	}
@@ -135,6 +151,9 @@ public class Library
 	// adds the specified actors to a movie
 	public void addCast(Item movie, String... members)
 	{
+        if (NYPL.contains(movie) && (movie instanceof Movie)) {
+            ((Movie) movie).addCastMembers(members);
+        }
 	}
 
 	// removes a movie from the library

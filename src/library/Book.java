@@ -64,4 +64,8 @@ class Book
         }
         out.println("\n");
     }
+
+    public String getTitle() {
+        return title;
+    }
 }

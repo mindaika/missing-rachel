@@ -61,22 +61,25 @@ class Movie
         out.println("-Movie-");
         out.println("director: " + director);
         out.println("# scenes: " + numberOfScenes);
-        out.println("cast:     ");
+        out.print("cast:     ");
         for (String member : members) {
             if (!member.equals(members.last()))
                 out.print(member + ", ");
             else
-                out.print(member);
+                out.println(member);
         }
-        //out.println("\n");
         out.println("title:    " + title);
         out.print("keywords: ");
         for (String keyword : keywords) {
             if (!keyword.equals(keywords.last()))
                 out.print(keyword + ", ");
             else
-                out.print(keyword);
+                out.println(keyword);
         }
-        out.println("\n");
+        out.println("");
+    }
+
+    public String getTitle() {
+        return title;
     }
 }
