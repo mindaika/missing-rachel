@@ -2,11 +2,17 @@ package library;
 
 import java.io.PrintStream;
 import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.SortedSet;
 
 public class Library
 {
 	// general methods
-	
+    // I debated whether there should be a single Collection containing all the items in the library, or separate
+    // Collections for each section. I decided on separates on the basis that if J. Smith made both a movie and a book
+    // with the same title, you would need to differentiate them. Hmm... actually nevermind.
+    Collection<Item> NYPL = new LinkedHashSet<Item>();
+
 	// returns all of the items which have the specified keyword
 	public Collection<Item> itemsForKeyword(String keyword)
 	{
@@ -16,6 +22,7 @@ public class Library
 	// print an item from this library to the output stream provided
 	public void printItem(PrintStream out, Item item)
 	{
+        item.displayInfo(out);
 	}
 	
 	// book-related methods
@@ -23,7 +30,18 @@ public class Library
 	// adds a book to the library
 	public Item addBook(String title, String author, int nPages, String... keywords)
 	{
-		return null;
+        Book newBook = new Book();
+
+        // This could potentially be more elegant as a single method...
+        // On second thought, I'd still have two parts: a set title/pages/author section
+        // And a add keywords section. It'd work, but meh...
+        newBook.setTitle(title);
+        newBook.setAuthor(author);
+        newBook.setPageCount(nPages);
+        newBook.addKeyword(keywords);
+        NYPL.add(newBook);
+
+		return newBook;
 	}
 	
 	// removes a book from the library
@@ -35,13 +53,13 @@ public class Library
 	// returns all of the books by the specified author
 	public Collection<Item> booksByAuthor(String author)
 	{
-		return null;
+        return null;
 	}
 	
 	// returns all of the books in the library
 	public Collection<Item> books()
 	{
-		return null;
+        return NYPL;
 	}
 	
 	// music-related methods
@@ -49,7 +67,18 @@ public class Library
 	// adds a music album to the library
 	public Item addMusicAlbum(String title, String band, int nSongs, String... keywords)
 	{
-		return null;
+        MusicAlbum newAlbum = new MusicAlbum();
+
+        // This could potentially be more elegant as a single method...
+        // On second thought, I'd still have two parts: a set title/pages/author section
+        // And a add keywords section. It'd work, but meh...
+        newAlbum.setTitle(title);
+        newAlbum.setAuthor(band);
+        newAlbum.setPageCount(nSongs);
+        newAlbum.addKeyword(keywords);
+        NYPL.add(newAlbum);
+
+        return newAlbum;
 	}
 
 	// adds the specified band members to a music album

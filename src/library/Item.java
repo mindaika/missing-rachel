@@ -4,6 +4,9 @@
 
 package library;
 
+import java.io.PrintStream;
+
 public abstract class Item
 {
+    abstract protected void displayInfo(PrintStream out);
 }
