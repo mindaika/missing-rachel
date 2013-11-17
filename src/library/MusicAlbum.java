@@ -1,7 +1,6 @@
 package library;
 
 import java.io.PrintStream;
-import java.util.HashSet;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -84,5 +83,28 @@ class MusicAlbum
 
     public String getTitle() {
         return title;
+    }
+
+    public String getBand() {
+        return band;
+    }
+
+    public String getMusician() {
+        return title;
+    }
+
+    @Override
+    public Boolean keyCheck(String keyword) {
+        Boolean match = false;
+        if (this.keywords.contains(keyword))
+            match = true;
+        return match;
+    }
+
+    public Boolean museCheck(String musician) {
+        Boolean match = false;
+        if (this.members.contains(musician))
+            match = true;
+        return match;
     }
 }

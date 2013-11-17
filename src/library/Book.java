@@ -1,6 +1,7 @@
 package library;
 
 import java.io.PrintStream;
+import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -67,5 +68,17 @@ class Book
 
     public String getTitle() {
         return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    @Override
+    public Boolean keyCheck(String keyword) {
+        Boolean match = false;
+        if (this.keywords.contains(keyword))
+            match = true;
+        return match;
     }
 }

@@ -82,4 +82,12 @@ class Movie
     public String getTitle() {
         return title;
     }
+
+    @Override
+    public Boolean keyCheck(String keyword) {
+        Boolean match = false;
+        if (this.keywords.contains(keyword))
+            match = true;
+        return match;
+    }
 }
