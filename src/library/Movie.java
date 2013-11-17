@@ -11,12 +11,12 @@ class Movie
     private String director = "";
     private int numberOfScenes = 0;
     private String title = "";
-    private SortedSet<String> members = new TreeSet<String>();
-    private SortedSet<String> keywords = new TreeSet<String>();
+    private final SortedSet<String> members = new TreeSet<String>();
+    private final SortedSet<String> keywords = new TreeSet<String>();
 
     // Set the Author of a Book, assuming no author has yet been set
     public void setDirector(String dirInput){
-        if (director == "")
+        if (director.equals(""))
             director = dirInput;
     }
 
@@ -44,16 +44,8 @@ class Movie
 
     // Set the Title of a MusicAlbum, assuming no title has been set
     public void setTitle(String movieTitle){
-        if (title == "")
+        if (title.equals(""))
             title = movieTitle;
-    }
-
-    // Remove keywords from item. I allowed this, since it seems logical to me that keywords for a title may change
-    // over time.
-    public void removeKeyword(String... keywordList){
-        for (String keyword : keywordList)
-            if (keywords.contains(keyword))
-                keywords.remove(keyword);
     }
 
     @Override
@@ -83,10 +75,21 @@ class Movie
         return title;
     }
 
+    public String getDirector() {
+        return director;
+    }
+
     @Override
     public Boolean keyCheck(String keyword) {
         Boolean match = false;
         if (this.keywords.contains(keyword))
+            match = true;
+        return match;
+    }
+
+    public Boolean hasActor(String person) {
+        Boolean match = false;
+        if (this.members.contains(person))
             match = true;
         return match;
     }

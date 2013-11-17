@@ -9,8 +9,8 @@ public class Library
 {
 	// general methods
 
-    // Sort a List of Items, based on Title
-    private List<Item> listSort(List listToSort) {
+    // Sort a List, based on Title
+    private Collection<Item> listSort(List listToSort) {
         Collections.sort(listToSort, new Comparator<Item>() {
             public int compare(Item o1, Item o2) {
                 String S1 = o1.getTitle();
@@ -18,11 +18,12 @@ public class Library
                 return S1.compareTo(S2);
             }
         });
+        //noinspection unchecked,unchecked
         return listToSort;
     }
 
     // A Library is a Collection of Items
-    Collection<Item> NYPL = new HashSet<Item>();
+    private final Collection<Item> NYPL = new HashSet<Item>();
 
 	// returns all of the items which have the specified keyword
 	public Collection<Item> itemsForKeyword(String keyword)
@@ -33,7 +34,7 @@ public class Library
                 keyList.add(keyMatch);
             }
         }
-        return listSort(keyList);
+        return (listSort(keyList));
 	}
 	
 	// print an item from this library to the output stream provided
@@ -64,7 +65,7 @@ public class Library
 	// removes a book from the library
 	public boolean removeBook(String title)
 	{
-        Boolean successFlag = true;
+        Boolean successFlag = false;
         Book toBeDeleted = null;
 		for (Item bookMatch : NYPL) {
             if (bookMatch.getTitle().equals(title) && (bookMatch instanceof Book))
@@ -134,7 +135,7 @@ public class Library
 	// removes a music album from the library
 	public boolean removeMusicAlbum(String title)
 	{
-        Boolean successFlag = true;
+        Boolean successFlag = false;
         MusicAlbum toBeDeleted = null;
         for (Item musicMatch : NYPL) {
             if (musicMatch.getTitle().equals(title) && (musicMatch instanceof MusicAlbum))
@@ -213,7 +214,7 @@ public class Library
 	// removes a movie from the library
 	public boolean removeMovie(String title)
 	{
-        Boolean successFlag = true;
+        Boolean successFlag = false;
         Movie toBeDeleted = null;
         for (Item movieMatch : NYPL) {
             if (movieMatch.getTitle().equals(title) && (movieMatch instanceof Movie))
@@ -227,13 +228,26 @@ public class Library
 	// returns all of the movies by the specified director
 	public Collection<Item> moviesByDirector(String director)
 	{
-		return null;
+        List<Item> directorList = new ArrayList<Item>();
+        for (Item film : NYPL) {
+            if (film instanceof  Movie && (((Movie) film).getDirector().equals(director))) {
+                directorList.add(film);
+            }
+        }
+
+        return listSort(directorList);
 	}
 	
 	// returns all of the movies by the specified actor
 	public Collection<Item> moviesByActor(String actor)
 	{
-		return null;
+        List<Item> castList = new ArrayList<Item>();
+        for (Item film : NYPL) {
+            if (film instanceof Movie && ((Movie) film).hasActor(actor)) {
+                castList.add(film);
+            }
+        }
+        return listSort(castList);
 	}
 	
 	// returns all of the movies in the library

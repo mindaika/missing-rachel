@@ -7,9 +7,10 @@ package library;
 import java.io.PrintStream;
 import java.util.Collection;
 
+// Herein lies the Item interface for the Library, containing general methods applicable to all items.
 public abstract class Item
 {
-    private Collection<Item> keywords;
+
     abstract protected void displayInfo(PrintStream out);
 
     abstract public String getTitle();

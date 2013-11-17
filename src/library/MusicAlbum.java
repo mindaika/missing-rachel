@@ -11,14 +11,14 @@ class MusicAlbum
     private String band = "";
     private int numberOfSongs = 0;
     private String title = "";
-    // Arguably, members should be a HashSet, since the datasets will be small. But, since these will all
+    // Arguably, members should be a HashSet, since the data sets will be small. But, since these will all
     // have to be displayed Sorted at some point, Trees make since and are still non-linear
-    private SortedSet<String> members = new TreeSet<String>();
-    private SortedSet<String> keywords = new TreeSet<String>();
+    private final SortedSet<String> members = new TreeSet<String>();
+    private final SortedSet<String> keywords = new TreeSet<String>();
 
     // Set the Author of a Book, assuming no author has yet been set
     public void setBandName(String bandInput){
-        if (band == "")
+        if (band.equals(""))
             band = bandInput;
     }
 
@@ -46,16 +46,8 @@ class MusicAlbum
 
     // Set the Title of a MusicAlbum, assuming no title has been set
     public void setTitle(String albumName){
-        if (title == "")
+        if (title.equals(""))
             title = albumName;
-    }
-
-    // Remove keywords from item. I allowed this, since it seems logical to me that keywords for a title may change
-    // over time.
-    public void removeKeyword(String... keywordList){
-        for (String keyword : keywordList)
-            if (keywords.contains(keyword))
-                keywords.remove(keyword);
     }
 
     @Override
@@ -87,10 +79,6 @@ class MusicAlbum
 
     public String getBand() {
         return band;
-    }
-
-    public String getMusician() {
-        return title;
     }
 
     @Override

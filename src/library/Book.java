@@ -12,11 +12,11 @@ class Book
     private String author = "";
     private int numberOfPages = 0;
     private String title = "";
-    private SortedSet<String> keywords = new TreeSet<String>();
+    final private SortedSet<String> keywords = new TreeSet<String>();
 
     // Set the Author of a Book, assuming no author has yet been set
     public void setAuthor(String authorInput){
-        if (author == "")
+        if (author.equals(""))
             author = authorInput;
     }
 
@@ -28,7 +28,7 @@ class Book
 
     // Set the Title of a Book, assuming no title has been set
     public void setTitle(String bookName){
-        if (title == "")
+        if (title.equals(""))
             title = bookName;
     }
 
@@ -39,14 +39,6 @@ class Book
         for (String keyword : keywordList)
             if (!keywords.contains(keyword))
                 keywords.add(keyword);
-    }
-
-    // Remove keywords from book. I allowed this, since it seems logical to me that keywords for a title may change
-    // over time.
-    public void removeKeyword(String... keywordList){
-        for (String keyword : keywordList)
-            if (keywords.contains(keyword))
-                keywords.remove(keyword);
     }
 
     @Override
