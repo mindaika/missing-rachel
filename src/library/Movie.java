@@ -39,14 +39,14 @@ class Movie
                 out.println(member);
         }
         out.println("title:    " + title);
-        out.print("keywords: ");
-        for (String keyword : keywords) {
+        printKeywords(out);
+/*        for (String keyword : keywords) {
             if (!keyword.equals(keywords.last()))
                 out.print(keyword + ", ");
             else
                 out.println(keyword);
-        }
-        out.println("");
+        }*/
+        out.println("\n");
     }
 
     // Add keywords to a book. I was split on whether this is a "Library" function or a "MusicAlbum" function, since in

@@ -7,8 +7,10 @@ import java.util.*;
 public class Library {
     // A Library is a Collection of Items
     private final Collection<Item> NYPL = new HashSet<Item>();
+    //protected Map<String, List<Item>> keyMap = new HashMap<String, List<Item>>();
+
+
     // general methods
-    private Collection<Item> keyMap = new HashSet<Item>();
 
     // Sort a List, based on Title
     private Collection<Item> listSort(List listToSort) {
@@ -24,16 +26,23 @@ public class Library {
     }
 
     // returns all of the items which have the specified keyword
-    // In theory, the keyword -> Item relation should be a hashmap. It seems to me that there will have to be a linear
-    // search of Items to Keywords at some point to create the map.
+    // In theory, the keyword -> Item relation should be a hashmap. But in order to do that, we'd have to create
+    // multiple hashes for each item, which isn't trivial. Consequently, it seems we're going to have to do a linear
+    // search of everything in the Collection to match keywords.
     public Collection<Item> itemsForKeyword(String keyword) {
-        List<Item> keyList = new ArrayList<Item>();
+        List<Item> itemList = Item.keyMap.get(keyword);
+        if (itemList != null)
+            listSort(itemList);
+
+        /*List<Item> keyList = new ArrayList<Item>();
         for (Item keyMatch : NYPL) {
             if (keyMatch.keyCheck(keyword)) {
                 keyList.add(keyMatch);
             }
         }
-        return (listSort(keyList));
+        // Testing for KeyHash
+        System.out.println(Item.keyMap.get(keyword));*/
+        return itemList;
     }
 
     // print an item from this library to the output stream provided

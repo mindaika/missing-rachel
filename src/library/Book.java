@@ -22,14 +22,14 @@ class Book
         out.println("author:   " + author);
         out.println("# pages:  " + numberOfPages);
         out.println("title:    " + title);
-        out.print("keywords: ");
-        for (String keyword : keywords) {
+        printKeywords(out);
+        /*for (String keyword : keywords) {
             // Clumsy and awkward looking, just like me attempting ballet
             if (!keyword.equals(keywords.last()))
                 out.print(keyword + ", ");
             else
                 out.print(keyword);
-        }
+        }*/
         out.println("\n");
     }
 
