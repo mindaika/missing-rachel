@@ -5,15 +5,23 @@
 package library;
 
 import java.io.PrintStream;
-import java.util.Collection;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 // Herein lies the Item interface for the Library, containing general methods applicable to all items.
-public abstract class Item
-{
+public abstract class Item {
+    protected SortedSet<String> keywords = new TreeSet<String>();
 
     abstract protected void displayInfo(PrintStream out);
 
     abstract public String getTitle();
 
-    abstract public Boolean keyCheck(String keyword);
+    public void addKeyword(String... keywordList) {
+        for (String keyword : keywordList)
+            keywords.add(keyword);
+    }
+
+    public Boolean keyCheck(String keyword) {
+        return (keywords.contains(keyword));
+    }
 }

@@ -4,10 +4,11 @@ import java.io.PrintStream;
 import java.util.*;
 
 
-
-public class Library
-{
-	// general methods
+public class Library {
+    // A Library is a Collection of Items
+    private final Collection<Item> NYPL = new HashSet<Item>();
+    // general methods
+    private Collection<Item> keyMap = new HashSet<Item>();
 
     // Sort a List, based on Title
     private Collection<Item> listSort(List listToSort) {
@@ -22,12 +23,10 @@ public class Library
         return listToSort;
     }
 
-    // A Library is a Collection of Items
-    private final Collection<Item> NYPL = new HashSet<Item>();
-
-	// returns all of the items which have the specified keyword
-	public Collection<Item> itemsForKeyword(String keyword)
-	{
+    // returns all of the items which have the specified keyword
+    // In theory, the keyword -> Item relation should be a hashmap. It seems to me that there will have to be a linear
+    // search of Items to Keywords at some point to create the map.
+    public Collection<Item> itemsForKeyword(String keyword) {
         List<Item> keyList = new ArrayList<Item>();
         for (Item keyMatch : NYPL) {
             if (keyMatch.keyCheck(keyword)) {
@@ -35,19 +34,17 @@ public class Library
             }
         }
         return (listSort(keyList));
-	}
-	
-	// print an item from this library to the output stream provided
-	public void printItem(PrintStream out, Item item)
-	{
+    }
+
+    // print an item from this library to the output stream provided
+    public void printItem(PrintStream out, Item item) {
         item.displayInfo(out);
-	}
-	
-	// book-related methods
-	
-	// adds a book to the library
-	public Item addBook(String title, String author, int nPages, String... keywords)
-	{
+    }
+
+    // book-related methods
+
+    // adds a book to the library
+    public Item addBook(String title, String author, int nPages, String... keywords) {
         Book newBook = new Book();
 
         // This could potentially be more elegant as a single method...
@@ -59,15 +56,14 @@ public class Library
         newBook.addKeyword(keywords);
         NYPL.add(newBook);
 
-		return newBook;
-	}
-	
-	// removes a book from the library
-	public boolean removeBook(String title)
-	{
+        return newBook;
+    }
+
+    // removes a book from the library
+    public boolean removeBook(String title) {
         Boolean successFlag = false;
         Book toBeDeleted = null;
-		for (Item bookMatch : NYPL) {
+        for (Item bookMatch : NYPL) {
             if (bookMatch.getTitle().equals(title) && (bookMatch instanceof Book))
                 toBeDeleted = (Book) bookMatch;
             successFlag = true;
@@ -75,39 +71,36 @@ public class Library
         if (successFlag)
             NYPL.remove(toBeDeleted);
         return successFlag;
-	}
-	
-	// returns all of the books by the specified author
-	public Collection<Item> booksByAuthor(String author)
-	{
+    }
+
+    // returns all of the books by the specified author
+    public Collection<Item> booksByAuthor(String author) {
         List<Item> authorList = new ArrayList<Item>();
         for (Item bookList : NYPL) {
-            if (bookList instanceof  Book && (((Book) bookList).getAuthor().equals(author))) {
+            if (bookList instanceof Book && (((Book) bookList).getAuthor().equals(author))) {
                 authorList.add(bookList);
             }
         }
 
         return listSort(authorList);
     }
-	
-	// returns all of the books in the library
-	public Collection<Item> books()
-	{
+
+    // returns all of the books in the library
+    public Collection<Item> books() {
         List<Item> bookList = new ArrayList<Item>();
         for (Item isAbook : NYPL) {
-            if (isAbook instanceof Book ) {
+            if (isAbook instanceof Book) {
                 bookList.add(isAbook);
             }
         }
 
         return listSort(bookList);
-	}
-	
-	// music-related methods
-	
-	// adds a music album to the library
-	public Item addMusicAlbum(String title, String band, int nSongs, String... keywords)
-	{
+    }
+
+    // music-related methods
+
+    // adds a music album to the library
+    public Item addMusicAlbum(String title, String band, int nSongs, String... keywords) {
         MusicAlbum newAlbum = new MusicAlbum();
 
         // This could potentially be more elegant as a single method...
@@ -120,21 +113,19 @@ public class Library
         NYPL.add(newAlbum);
 
         return newAlbum;
-	}
+    }
 
-	// adds the specified band members to a music album
-	public void addBandMembers(Item album, String... members)
-	{
+    // adds the specified band members to a music album
+    public void addBandMembers(Item album, String... members) {
         // Maybe not necessary? Checks to see if the library contains the item, and if the item of of the type
         // needed to call addBandMembers
         if (NYPL.contains(album) && (album instanceof MusicAlbum)) {
             ((MusicAlbum) album).addBandMembers(members);
         }
-	}
-	
-	// removes a music album from the library
-	public boolean removeMusicAlbum(String title)
-	{
+    }
+
+    // removes a music album from the library
+    public boolean removeMusicAlbum(String title) {
         Boolean successFlag = false;
         MusicAlbum toBeDeleted = null;
         for (Item musicMatch : NYPL) {
@@ -144,23 +135,23 @@ public class Library
         }
         if (successFlag)
             NYPL.remove(toBeDeleted);
-        return successFlag;	}
+        return successFlag;
+    }
 
-	// returns all of the music albums by the specified band
-	public Collection<Item> musicByBand(String band)
-	{
+    // returns all of the music albums by the specified band
+    public Collection<Item> musicByBand(String band) {
         List<Item> bandList = new ArrayList<Item>();
         for (Item bands : NYPL) {
-            if (bands instanceof  MusicAlbum && (((MusicAlbum) bands).getBand().equals(band))) {
+            if (bands instanceof MusicAlbum && (((MusicAlbum) bands).getBand().equals(band))) {
                 bandList.add(bands);
             }
         }
 
-        return listSort(bandList);	}
-	
-	// returns all of the music albums by the specified musician
-	public Collection<Item> musicByMusician(String musician)
-	{
+        return listSort(bandList);
+    }
+
+    // returns all of the music albums by the specified musician
+    public Collection<Item> musicByMusician(String musician) {
         List<Item> museList = new ArrayList<Item>();
         for (Item musicMan : NYPL) {
             if (musicMan instanceof MusicAlbum && ((MusicAlbum) musicMan).museCheck(musician)) {
@@ -168,11 +159,10 @@ public class Library
             }
         }
         return listSort(museList);
-	}
-	
-	// returns all of the music albums in the library, sorted by title
-	public Collection<Item> musicAlbums()
-	{
+    }
+
+    // returns all of the music albums in the library, sorted by title
+    public Collection<Item> musicAlbums() {
         // Create a Collection of musicAlbums in the NYPL
         List<Item> musicList = new ArrayList<Item>();
         for (Item isAmusic : NYPL) {
@@ -182,13 +172,12 @@ public class Library
         }
 
         return listSort(musicList);
-	}
-	
-	// movie-related methods
-	
-	// adds a movie to the library
-	public Item addMovie(String title, String director, int nScenes, String... keywords)
-	{
+    }
+
+    // movie-related methods
+
+    // adds a movie to the library
+    public Item addMovie(String title, String director, int nScenes, String... keywords) {
         Movie newMovie = new Movie();
 
         // This could potentially be more elegant as a single method...
@@ -201,19 +190,17 @@ public class Library
         NYPL.add(newMovie);
 
         return newMovie;
-	}
+    }
 
-	// adds the specified actors to a movie
-	public void addCast(Item movie, String... members)
-	{
+    // adds the specified actors to a movie
+    public void addCast(Item movie, String... members) {
         if (NYPL.contains(movie) && (movie instanceof Movie)) {
             ((Movie) movie).addCastMembers(members);
         }
-	}
+    }
 
-	// removes a movie from the library
-	public boolean removeMovie(String title)
-	{
+    // removes a movie from the library
+    public boolean removeMovie(String title) {
         Boolean successFlag = false;
         Movie toBeDeleted = null;
         for (Item movieMatch : NYPL) {
@@ -223,24 +210,23 @@ public class Library
         }
         if (successFlag)
             NYPL.remove(toBeDeleted);
-        return successFlag;	}
-	
-	// returns all of the movies by the specified director
-	public Collection<Item> moviesByDirector(String director)
-	{
+        return successFlag;
+    }
+
+    // returns all of the movies by the specified director
+    public Collection<Item> moviesByDirector(String director) {
         List<Item> directorList = new ArrayList<Item>();
         for (Item film : NYPL) {
-            if (film instanceof  Movie && (((Movie) film).getDirector().equals(director))) {
+            if (film instanceof Movie && (((Movie) film).getDirector().equals(director))) {
                 directorList.add(film);
             }
         }
 
         return listSort(directorList);
-	}
-	
-	// returns all of the movies by the specified actor
-	public Collection<Item> moviesByActor(String actor)
-	{
+    }
+
+    // returns all of the movies by the specified actor
+    public Collection<Item> moviesByActor(String actor) {
         List<Item> castList = new ArrayList<Item>();
         for (Item film : NYPL) {
             if (film instanceof Movie && ((Movie) film).hasActor(actor)) {
@@ -248,14 +234,13 @@ public class Library
             }
         }
         return listSort(castList);
-	}
-	
-	// returns all of the movies in the library
-	public Collection<Item> movies()
-	{
+    }
+
+    // returns all of the movies in the library
+    public Collection<Item> movies() {
         List<Item> movieList = new ArrayList<Item>();
         for (Item isAMovie : NYPL) {
-            if (isAMovie instanceof Movie ) {
+            if (isAMovie instanceof Movie) {
                 movieList.add(isAMovie);
             }
         }
