@@ -9,9 +9,9 @@ import java.util.*;
 
 // Herein lies the Item interface for the Library, containing general methods applicable to all items.
 public abstract class Item {
-    protected Set<String> keywords = new TreeSet<String>();
+    protected final Set<String> keywords = new TreeSet<String>();
     //protected static Map keyMap = new HashMap<String, Item>();
-    protected static Map<String, List<Item>> keyMap = new HashMap<String, List<Item>>();
+    protected final static Map<String, List<Item>> keyMap = new HashMap<String, List<Item>>();
 
 
     abstract protected void displayInfo(PrintStream out);
@@ -31,6 +31,14 @@ public abstract class Item {
         }
     }
 
+    public void removeKeyword(String... keywordList) {
+        for (String keyword : keywordList) {
+            keywords.remove(keyword);
+            if (keyMap.containsKey(keyword)) {
+                keyMap.get(keyword).remove(this);
+            }
+        }
+    }
 /*    public Boolean keyCheck(String keyword) {
         System.out.println(keyMap.get(keyword));
         return (keywords.contains(keyword));
@@ -53,9 +61,9 @@ public abstract class Item {
         return keyMap.get(keyword);
     }*/
 
-    public void updateKeymap(Item update) {
+   /* public void updateKeymap(Item update) {
         if (keyMap.containsValue(update)) {
 
         }
-    }
+    }*/
 }

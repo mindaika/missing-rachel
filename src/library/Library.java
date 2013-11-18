@@ -75,20 +75,15 @@ public class Library {
         Boolean successFlag = false;
         Book toBeDeleted = null;
         for (Item bookMatch : NYPL) {
-            if (bookMatch.getTitle().equals(title) && (bookMatch instanceof Book))
+            if (bookMatch.getTitle().equals(title) && (bookMatch instanceof Book)) {
                 toBeDeleted = (Book) bookMatch;
+                String[] someArray = new String[bookMatch.keywords.size()];
+                bookMatch.removeKeyword(bookMatch.keywords.toArray(someArray));
+            }
             successFlag = true;
         }
         if (successFlag)
             NYPL.remove(toBeDeleted);
-        if (Item.keyMap.containsValue(toBeDeleted)) {
-            // We apparently need to get all the keyword for some title, and remove the links to that object
-            // for each keyword. Seems like that defeats any efficiency gain from hashing the keywords in
-            // the first place, but maybe I'm doing it wrong
-            for (String keyword : toBeDeleted.keywords) {
-                // Delete object
-            }
-        }
         return successFlag;
     }
 
@@ -148,15 +143,18 @@ public class Library {
         Boolean successFlag = false;
         MusicAlbum toBeDeleted = null;
         for (Item musicMatch : NYPL) {
-            if (musicMatch.getTitle().equals(title) && (musicMatch instanceof MusicAlbum))
+            if (musicMatch.getTitle().equals(title) && (musicMatch instanceof MusicAlbum)) {
                 toBeDeleted = (MusicAlbum) musicMatch;
+                String[] someArray = new String[musicMatch.keywords.size()];
+                musicMatch.removeKeyword(musicMatch.keywords.toArray(someArray));
+            }
             successFlag = true;
         }
         if (successFlag)
             NYPL.remove(toBeDeleted);
-        if (Item.keyMap.containsValue(toBeDeleted)) {
+        /*if (Item.keyMap.containsValue(toBeDeleted)) {
             Item.keyMap.remove(toBeDeleted);
-        }
+        }*/
         return successFlag;
     }
 
@@ -226,15 +224,19 @@ public class Library {
         Boolean successFlag = false;
         Movie toBeDeleted = null;
         for (Item movieMatch : NYPL) {
-            if (movieMatch.getTitle().equals(title) && (movieMatch instanceof Movie))
+            if (movieMatch.getTitle().equals(title) && (movieMatch instanceof Movie)) {
                 toBeDeleted = (Movie) movieMatch;
+                String[] someArray = new String[movieMatch.keywords.size()];
+                movieMatch.removeKeyword(movieMatch.keywords.toArray(someArray));
+            }
+
             successFlag = true;
         }
         if (successFlag)
             NYPL.remove(toBeDeleted);
-        if (Item.keyMap.containsValue(toBeDeleted)) {
+        /*if (Item.keyMap.containsValue(toBeDeleted)) {
             Item.keyMap.remove(toBeDeleted);
-        }
+        }*/
         return successFlag;
     }
 
