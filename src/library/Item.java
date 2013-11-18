@@ -52,4 +52,10 @@ public abstract class Item {
 /*    public List<Item> getItemsMatchingKeyword(String keyword) {
         return keyMap.get(keyword);
     }*/
+
+    public void updateKeymap(Item update) {
+        if (keyMap.containsValue(update)) {
+
+        }
+    }
 }

@@ -13,6 +13,8 @@ public class Library {
     // general methods
 
     // Sort a List, based on Title
+    // I suspect I could just add items to an already sorted list... or not, since that was the whole purpose behind
+    // the Comparator: "sorting" doesn't mean anything without a basis for sorting; in this case, title
     private Collection<Item> listSort(List listToSort) {
         Collections.sort(listToSort, new Comparator<Item>() {
             public int compare(Item o1, Item o2) {
@@ -79,6 +81,14 @@ public class Library {
         }
         if (successFlag)
             NYPL.remove(toBeDeleted);
+        if (Item.keyMap.containsValue(toBeDeleted)) {
+            // We apparently need to get all the keyword for some title, and remove the links to that object
+            // for each keyword. Seems like that defeats any efficiency gain from hashing the keywords in
+            // the first place, but maybe I'm doing it wrong
+            for (String keyword : toBeDeleted.keywords) {
+                // Delete object
+            }
+        }
         return successFlag;
     }
 
@@ -144,6 +154,9 @@ public class Library {
         }
         if (successFlag)
             NYPL.remove(toBeDeleted);
+        if (Item.keyMap.containsValue(toBeDeleted)) {
+            Item.keyMap.remove(toBeDeleted);
+        }
         return successFlag;
     }
 
@@ -219,6 +232,9 @@ public class Library {
         }
         if (successFlag)
             NYPL.remove(toBeDeleted);
+        if (Item.keyMap.containsValue(toBeDeleted)) {
+            Item.keyMap.remove(toBeDeleted);
+        }
         return successFlag;
     }
 

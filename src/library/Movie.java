@@ -1,8 +1,7 @@
 package library;
 
 import java.io.PrintStream;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 class Movie
         extends Item {
@@ -12,6 +11,8 @@ class Movie
     private int numberOfScenes = 0;
     private String title = "";
     //private final SortedSet<String> keywords = new TreeSet<String>();
+    //protected static Map<String, List<Item>> actorMap = new HashMap<String, List<Item>>();
+
 
     // Set the Song Count of a MusicAlbum, assuming no page count has been set
     public void setSceneCount(int scenes) {
